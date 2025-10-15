@@ -32,36 +32,36 @@ const ProductCard: React.FC<ProductCardProps> = ({ product, onSelect, intent }) 
       </View>
       
       <Text style={styles.description} numberOfLines={2}>
-        {product.quantity_or_weight}
+        {product.description}
       </Text>
 
       
       
       <View style={styles.cardFooter}>
-        {product.price && (
+        {/* {product.price && (
           <View style={styles.priceContainer}>
             <Text style={styles.priceLabel}>Price:</Text>
             <Text style={styles.price}>
               {product.price === 'unknown' ? 'Contact for price' : product.price}
             </Text>
           </View>
-        )}
+        )} */}
         
-        {product.available_quantity && (
+        {/* {product.available_quantity && (
           <View style={styles.quantityContainer}>
             <Text style={styles.quantityLabel}>Available:</Text>
             <Text style={styles.quantity}>
               {product.available_quantity === 'unknown' ? 'Check availability' : product.available_quantity}
             </Text>
           </View>
-        )}
+        )} */}
 
-        {product.quantity && (
+        {/* {product.quantity && (
           <View style={styles.selectedQuantityContainer}>
             <Text style={styles.selectedQuantityLabel}>Selected:</Text>
             <Text style={styles.selectedQuantity}>{product.quantity} units</Text>
           </View>
-        )}
+        )} */}
       </View>
       
       {!isAddressCapture ? (

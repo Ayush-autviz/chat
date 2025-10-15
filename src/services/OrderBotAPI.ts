@@ -1,6 +1,6 @@
 import axios from 'axios';
 
-const API_BASE_URL = 'http://localhost:8001';
+const API_BASE_URL = 'http://157.173.218.48:8001';
 
 export interface Product {
   name: string;
