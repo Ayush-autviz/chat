@@ -1,45 +1,36 @@
-/**
- * Sample React Native App
- * https://github.com/facebook/react-native
- *
- * @format
- */
+import React, { useState } from 'react';
+import { NavigationContainer } from '@react-navigation/native';
+import { createNativeStackNavigator } from '@react-navigation/native-stack';
+import { StatusBar } from 'react-native';
+import SplashScreen from './src/screens/SplashScreen';
+import ChatScreen from './src/screens/ChatScreen';
 
-import { NewAppScreen } from '@react-native/new-app-screen';
-import { StatusBar, StyleSheet, useColorScheme, View } from 'react-native';
-import {
-  SafeAreaProvider,
-  useSafeAreaInsets,
-} from 'react-native-safe-area-context';
+const Stack = createNativeStackNavigator();
 
-function App() {
-  const isDarkMode = useColorScheme() === 'dark';
+const App: React.FC = () => {
+  const [showSplash, setShowSplash] = useState(true);
 
-  return (
-    <SafeAreaProvider>
-      <StatusBar barStyle={isDarkMode ? 'light-content' : 'dark-content'} />
-      <AppContent />
-    </SafeAreaProvider>
-  );
-}
+  const handleSplashFinish = () => {
+    setShowSplash(false);
+  };
 
-function AppContent() {
-  const safeAreaInsets = useSafeAreaInsets();
+  if (showSplash) {
+    return <SplashScreen onFinish={handleSplashFinish} />;
+  }
 
   return (
-    <View style={styles.container}>
-      <NewAppScreen
-        templateFileName="App.tsx"
-        safeAreaInsets={safeAreaInsets}
-      />
-    </View>
+    <NavigationContainer>
+      <StatusBar barStyle="dark-content" backgroundColor="#ffffff" />
+      <Stack.Navigator
+        screenOptions={{
+          headerShown: false,
+        //  cardStyle: { backgroundColor: '#f8fafc' },
+        }}
+      >
+        <Stack.Screen name="Chat" component={ChatScreen} />
+      </Stack.Navigator>
+    </NavigationContainer>
   );
-}
-
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-  },
-});
+};
 
 export default App;
