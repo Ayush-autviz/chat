@@ -37,6 +37,7 @@ import OrderBotAPI, { OrderBotResponse, Product } from '../services/OrderBotAPI'
 import ProductCard from '../components/ProductCard';
 import QuantityInput from '../components/QuantityInput';
 import AddressInput from '../components/AddressInput';
+import OrderSuccessCard from '../components/OrderSuccessCard';
 
 const { width } = Dimensions.get('window');
 
@@ -500,7 +501,7 @@ const ChatScreen: React.FC = () => {
               <Text style={styles.placeOrderButtonText}>Place My Order</Text>
             </TouchableOpacity>
           )}
-                    {message.apiResponse?.assistant_response?.intent === 'order_placement'  && (
+          {message.apiResponse?.assistant_response?.intent === 'order_placement'  && (
             <TouchableOpacity
               style={styles.placeOrderButton}
               onPress={handlePlaceOrder}
@@ -508,6 +509,15 @@ const ChatScreen: React.FC = () => {
               <CheckCircle size={20} color="#ffffff" />
               <Text style={styles.placeOrderButtonText}>Place My Order</Text>
             </TouchableOpacity>
+          )}
+
+          {/* Show order success card for order_success intent */}
+          {message.apiResponse?.assistant_response?.intent === 'order_success' && (
+            <OrderSuccessCard
+              products={message.apiResponse.assistant_response.products || []}
+              address={message.apiResponse.assistant_response.address || ''}
+              message={message.apiResponse.assistant_response.message || ''}
+            />
           )}
         </>
       )}
@@ -567,6 +577,7 @@ const ChatScreen: React.FC = () => {
             <TextInput
               style={styles.textInput}
               placeholder="Type a message..."
+              placeholderTextColor={"#9ca3af"}
               value={inputText}
               onChangeText={setInputText}
               multiline
@@ -704,7 +715,7 @@ const styles = StyleSheet.create({
     padding: 12,
     borderRadius: 16,
     marginVertical: 4,
-    minWidth: 120,
+    minWidth: 200,
   },
   voiceText: {
     fontSize: 14,
